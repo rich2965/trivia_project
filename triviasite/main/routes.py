@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import request, render_template
 
-from triviasite.models import Question
+from triviasite.models import Question,Movie
 
 main = Blueprint('main',__name__)
 
@@ -15,10 +15,14 @@ def home():
     else:
         questions = Question.query.paginate(page=page, per_page=5)
     categories = Question.query.with_entities(Question.category).distinct()
-    print(request.args)
-    print(category_filter)
     return render_template('home.html',questions = questions,categories=categories,category_filter=category_filter)
 
 @main.route("/about",)
 def about():
     return render_template('about.html',title = 'About')
+
+@main.route("/movies",)
+def movies():
+    movie = Movie.query.filter_by(id='tt14209916').first()
+    print(movie)
+    return render_template('movies.html',movie=movie)

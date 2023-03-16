@@ -37,3 +37,11 @@ class Question(db.Model):
     answer = db.Column(db.Text,nullable=False)
     source = db.Column(db.Text,nullable=False)
     category = db.Column(db.Text,nullable=False)
+
+class Movie(db.Model):
+    id = db.Column(db.Text,primary_key=True)
+    titleType = db.Column(db.Text,nullable=False)
+    primaryTitle = db.Column(db.Text,nullable=False)
+    startYear = db.Column(db.Text,nullable=False)
+    genres = db.Column(db.Text,nullable=False)
+    still_image = db.Column(db.Text,nullable=False)
