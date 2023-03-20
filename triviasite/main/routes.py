@@ -23,6 +23,6 @@ def about():
 
 @main.route("/movies",)
 def movies():
-    movie = Movie.query.filter_by(id='tt14209916').first()
+    movie = Movie.query.first()
     print(movie)
     return render_template('movies.html',movie=movie)

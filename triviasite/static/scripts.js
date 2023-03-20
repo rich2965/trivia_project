@@ -9,6 +9,9 @@ function redirectToPage(redirect_url) {
     }
 }
 
+function generateRandomMovie(){
+    location.reload();
+}
 
 for (var i = 0; i < cards.length; i++) {
     cards[i].addEventListener('click', function() {

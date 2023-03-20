@@ -39,6 +39,7 @@ class Question(db.Model):
     category = db.Column(db.Text,nullable=False)
 
 class Movie(db.Model):
+    __tablename__ = 'movies_with_images'
     id = db.Column(db.Text,primary_key=True)
     titleType = db.Column(db.Text,nullable=False)
     primaryTitle = db.Column(db.Text,nullable=False)
