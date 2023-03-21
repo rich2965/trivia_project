@@ -149,8 +149,8 @@ img {
   display: block;
 }
 
-
-button {
+/* Button at the bottom for refresh the paging.  */
+.generate-button {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -159,8 +159,72 @@ button {
   font-size: 1.2rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+  
 }
 
-button:hover {
+.generate-button:hover {
   background-color: #3e8e41;
+}
+
+/* Style the links inside the pill navigation menu */
+.pill-nav a {
+  display: inline-block;
+  color: black;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  font-size: 17px;
+  border-radius: 5px;
+}
+
+/* Change the color of links on mouse-over */
+.pill-nav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.pill-nav a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.pill-nav {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.generate-button:hover {
+  background-color: #3e8e41;
+}
+
+
+/* Buttons at the bottom of movie image  */
+.img-nav button {
+  /* display: inline-block; */
+  color: black;
+  /* text-align: center; */
+  /* padding: 14px; */
+  text-decoration: none;
+  font-size: 17px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Change the color of links on mouse-over */
+.img-nav button:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.img-nav button.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.img-nav {
+  overflow-x: auto;
+  white-space: nowrap;
 }

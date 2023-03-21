@@ -1,13 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>
-        <select id="category-select" onchange="redirectToPage(this.value)">
-            <option value="all">{{category_filter}}</option>
-            {% for category in categories %}
-            <option value="{{ url_for('main.home',category_filter = category[0]) }}">{{category[0]}}</option>
-            {% endfor %}
-        </select>
-    </div>
+    <div class="pill-nav">
+        {% if category_filter %}
+            <a href="{{ url_for('main.home')}}">All</a>
+        {% else %}
+            <a class="active" href="{{ url_for('main.home')}}">All</a>    
+        {% endif %}
+        
+        {% for category in categories %} 
+            {% if category_filter ==  category[0] %}
+                <a class = "active" href="{{ url_for('main.home',category_filter = category[0]) }}">{{category[0]}}</a>
+            {% else %}
+                <a href="{{ url_for('main.home',category_filter = category[0]) }}">{{category[0]}}</a>
+            {% endif %}
+        {% endfor %}
+        
+      </div>
     {% for question in questions.items %}
 
                 <div class="flashcard" data-category= {{question.category}}>
@@ -21,15 +29,7 @@
                 </div>
 
     {% endfor %}
-    {% for page_num in questions.iter_pages(left_edge=1, right_edge=1,left_current=1, right_current=2) %}
-        {% if page_num %}
-            {% if questions.page == page_num %}
-            <a class="btn btn-info mb-4" href="{{ url_for('main.home',page=page_num, category_filter=category_filter) }}"> {{page_num}}</a>
-            {% else %}
-            <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home',page=page_num, category_filter=category_filter) }}"> {{page_num}}</a>
-            {% endif %}
-        {% else %}
-            ...
-        {% endif %}
-    {% endfor %}
+    <div>
+        <button class="generate-button" onclick="refreshPage()">Generate Random Questions</button>
+    </div>
 {% endblock content %}
