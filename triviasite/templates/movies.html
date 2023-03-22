@@ -1,27 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div>
+    <div  class="genre-select-container">
+        <label for="genre-select">Genre:</label>
         <select id="genre-select" onchange="redirectToPage(this.value)">
-            <option value="all">{{genre_filter}}</option>
-            {% for genre in genres %}
-            <option value="{{ url_for('main.movies',genre_filter = genre) }}">{{genre}}</option>
-            {% endfor %}
+
+                <option value="{{genre_filter}}">{{genre_filter}}</option>
+                {% for genre in genres %}
+                <option value="{{ url_for('main.movies',genre_filter = genre) }}">{{genre}}</option>
+                {% endfor %}
         </select>
-    </div>
-        
+    </div>   
     <div class="flashcard_movie">
-        <div class="front" class="image-container">
-            <!-- {% for image in movie.still_imagery %}
-            <img src ="{{image}}" alt="Image">
-            {% endfor %} -->
+        <div id="imageContainer" class="front image-container">
             <img id="contentImage" src ="{{ movie.still_imagery[0] }}" alt="Image">
         </div>
         <div class="back">
-        <p class="article-content">Answer: {{ movie.primaryTitle }}</p>
-        <p>Year: {{movie.startYear}}</p>
-        <p>Source: IMDb</p>
-        <p>Genre(s): {{movie.genres}}</p>
-        <p>Storyline: {{movie.storyline}}</p>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ movie.primaryTitle }}</td>
+                </tr>
+                <tr>
+                    <td>Year</td>
+                    <td>{{ movie.startYear }}</td>
+                </tr>
+                <tr>
+                    <td>Source</td>
+                    <td>IMDb</td>
+                </tr>
+                <tr>
+                    <td>Genre(s)</td>
+                    <td>{{ movie.genres }}</td>
+                </tr>
+                <tr>
+                    <td>Storyline</td>
+                    <td>{{ movie.storyline }}</td>
+                </tr>
+            </table>
         </div>
     </div>  
     <div class="img-nav">    

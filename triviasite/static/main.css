@@ -56,7 +56,7 @@ body {
   position: relative;
   perspective: 1000px;
   margin-bottom: 20px;
-  text-align: center;
+
 
 
 }
@@ -138,9 +138,10 @@ body {
 }
 
 .image-container {
-  width: 300px;
-  height: 200px;
-  overflow: hidden;
+  background-color: black;
+  display: flex;
+  justify-content: center; /* horizontally center the content */
+  align-items: center; /* vertically center the content */
 }
 
 img {
@@ -227,4 +228,69 @@ img {
 .img-nav {
   overflow-x: auto;
   white-space: nowrap;
+}
+
+  /* Style the table  for the movie flashcard information section*/
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  /* Style the table cells */
+  td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 16px;
+  }
+  
+  /* Style the table header cells */
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  /* Style alternating rows */
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:nth-child(odd) {
+    background-color: lightsteelblue;
+  }
+
+
+/* Dropdown Box on Movie Page Styling */
+.genre-select-container{
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  display: inline-block;
+}
+
+label {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+select {
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  color: #000;
+  cursor: pointer;
+}
+
+option:first-of-type {
+  color: #999;
+}
+
+option:not(:first-of-type):hover {
+  background-color: #ddd;
 }
