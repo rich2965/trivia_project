@@ -43,6 +43,4 @@ def movies():
         movie = Movie.query.filter(Movie.startYear.like(year_search)).first()
     else:
         movie = Movie.query.first()
-    print(year_filter)
-    print(genre_filter)
     return render_template('movies.html',movie=movie,genres=genres,genre_filter=genre_filter,year_filter=year_filter)
