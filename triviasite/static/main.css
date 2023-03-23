@@ -263,7 +263,7 @@ img {
 
 
 /* Dropdown Box on Movie Page Styling */
-.genre-select-container{
+.genre-select-container, .year-select-container {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;

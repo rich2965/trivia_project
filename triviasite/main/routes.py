@@ -23,9 +23,11 @@ def about():
 
 @main.route("/movies",)
 def movies():
-    page = request.args.get('page',1,type=int)
     movie = Movie.query.first()
     genre_filter = request.args.get('genre_filter',None,type=str)
+    year_filter = request.args.get('year_filter',None,type=str)
+    if year_filter:
+        year_search = f"%{year_filter[:3]}%"
     search_category_text = "%{}%".format(genre_filter)
     genres_query = Movie.query.with_entities(Movie.genres).distinct().all()
     genres = []
@@ -33,10 +35,14 @@ def movies():
         for genre in genre_group[0].split(','):
             if genre not in genres:
                 genres.append(genre)
-    if genre_filter:
+    if (genre_filter and year_filter):
+        movie = Movie.query.filter(Movie.genres.like(search_category_text)).filter(Movie.startYear.like(year_search)).first()
+    elif genre_filter:
         movie = Movie.query.filter(Movie.genres.like(search_category_text)).first()
+    elif year_filter:
+        movie = Movie.query.filter(Movie.startYear.like(year_search)).first()
     else:
         movie = Movie.query.first()
-    print (search_category_text)
-    print(movie.still_imagery)
-    return render_template('movies.html',movie=movie,genres=genres,genre_filter=genre_filter)
+    print(year_filter)
+    print(genre_filter)
+    return render_template('movies.html',movie=movie,genres=genres,genre_filter=genre_filter,year_filter=year_filter)
