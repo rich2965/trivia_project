@@ -13,24 +13,23 @@ login_manager.login_view ='login'
 login_manager.login_message_category = 'info'
 mail = Mail()
 
+app = Flask(__name__)
+app.config.from_object(Config)
 
-def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(Config)
+db.init_app(app)
+bcrypt.init_app(app)
+login_manager.init_app(app)
+mail.init_app(app)
 
-    db.init_app(app)
-    bcrypt.init_app(app)
-    login_manager.init_app(app)
-    mail.init_app(app)
+from triviasite.users.routes import users
+from triviasite.questions.routes import questions
+from triviasite.main.routes import main
+from triviasite.errors.handlers import errors
 
-    from triviasite.users.routes import users
-    from triviasite.questions.routes import questions
-    from triviasite.main.routes import main
-    from triviasite.errors.handlers import errors
+app.register_blueprint(users)
+app.register_blueprint(questions)
+app.register_blueprint(main)
+app.register_blueprint(errors)
 
-    app.register_blueprint(users)
-    app.register_blueprint(questions)
-    app.register_blueprint(main)
-    app.register_blueprint(errors)
-
-    return app
+if __name__ == '__main__':
+    app.run()
