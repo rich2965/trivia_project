@@ -39,54 +39,26 @@ function changeImage(imageURL) {
 
 
 //// Used for swiping on image container to get to the next image. 
-var container = document.getElementById("imageContainer");
-var startX, startY;
-var lastScrollPosition = 1
-
-container.addEventListener("touchstart", function(event) {
-  // Get the starting position of the touch
-  startX = event.touches[0].clientX;
-  startY = event.touches[0].clientY;
+var mySwiper = new Swiper('.swiper-container', {
+  // Add options here
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
 });
 
-container.addEventListener("touchmove", function(event) {
-  // Prevent scrolling
-  event.preventDefault();
+// Add event listeners to the navigation buttons
+var prevButton = document.querySelector('.swiper-button-prev');
+var nextButton = document.querySelector('.swiper-button-next');
+prevButton.addEventListener('click', function(event) {
+  event.stopPropagation(); // Prevent click event from propagating
+  // Your code for handling the click event for the prev button
 });
-
-container.addEventListener("touchend", function(event) {
-  // Get the end position of the touch
-  var endX = event.changedTouches[0].clientX;
-  var endY = event.changedTouches[0].clientY;
-
-  // Calculate the distance and direction of the swipe
-  var distanceX = startX - endX;
-  var distanceY = startY - endY;
-  var absX = Math.abs(distanceX);
-  var absY = Math.abs(distanceY);
-  var direction = "";
-
-  if (absX > absY) {
-    // Horizontal swipe
-    if (distanceX > 0) {
-      // Swipe left
-      direction = "left";
-    } else {
-      // Swipe right
-      direction = "right";
-    }
-  }
-
-  if (direction == "left" && lastScrollPosition <5){
-    lastScrollPosition += 1;
-    console.log("New Position " + lastScrollPosition);
-    changeImage(document.getElementById(lastScrollPosition));
-  } else if (direction == "right" && lastScrollPosition >1) {
-    lastScrollPosition -= 1;
-    console.log("New Position " + lastScrollPosition);
-    changeImage(document.getElementById(lastScrollPosition));
-  }
-  // Do something with the direction of the swipe
-  console.log("Swiped " + direction);
-
+nextButton.addEventListener('click', function(event) {
+  event.stopPropagation(); // Prevent click event from propagating
+  // Your code for handling the click event for the next button
 });

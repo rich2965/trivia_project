@@ -24,8 +24,17 @@
     </div>
     </row>   
     <div class="flashcard_movie">
-        <div id="imageContainer" class="front image-container">
-            <img id="contentImage" src ="{{ movie.still_imagery[0] }}" alt="Image">
+        <div class="front image-container swiper-container " id="imageContainer" >
+            <div class="swiper-wrapper">
+                {% for image in movie.still_imagery %} 
+                <div class="swiper-slide"><img src="{{image}}"></div>
+                {% endfor %}
+            </div>
+              <!-- Add navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <!-- Add pagination counter -->
+            <div class="swiper-pagination"></div>
         </div>
         <div class="back">
             <table>
@@ -52,16 +61,6 @@
             </table>
         </div>
     </div>  
-    <div class="img-nav">    
-        {% for image in movie.still_imagery %} 
-            {% if loop.index == 1 %}
-                <button class = "active" id="{{loop.index}}" value="{{image}}"  onclick="changeImage(this)">{{loop.index}} </button>
-            {% else %}
-                <button id="{{loop.index}}"  value="{{image}}" onclick="changeImage(this)">{{loop.index}} </button>
-            {% endif %}
-        {% endfor %}
-    </div>    
-    <div>
         <button class="generate-button" onclick="refreshPage()">Generate Random Movie</button>
     </div>
 {% endblock content %}
