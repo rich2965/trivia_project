@@ -1,8 +1,8 @@
 /* Website name */
 .navbar-brand {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
+  font-family: 'Comic Sans MS';
+  font-size: 1.75rem;
+  font-weight: 500;
   color: white;
 }
 
@@ -281,19 +281,41 @@ img {
   }
 
 
-/* Dropdown Box on Movie Page Styling */
-.genre-select-container, .year-select-container {
+/* Dropdown Box on Questions Page Styling */
+.category-select-container{
+  display: inline-block;
+  width: auto;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
+  margin-bottom: 10px
+}
+
+
+/* Dropdown Box on Movie Page Styling */
+.filter-container {
+  display: flex; /* display the container as a flex container */
+  flex-wrap:nowrap; /* allow the boxes to wrap to the next row if necessary */
+}
+
+.genre-select-container, .year-select-container {
   display: inline-block;
+  width: 50%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px
 }
 
 label {
-  display: inline-block;
-  margin-right: 10px;
   font-size: 16px;
+}
+
+.genre-select {
+  flex:1;
+  width:calc(70%) ; /* let the select element fill the remaining space */
 }
 
 select {
@@ -304,6 +326,7 @@ select {
   background-color: #f1f1f1;
   color: #000;
   cursor: pointer;
+  text-align: center;
 }
 
 option:first-of-type {

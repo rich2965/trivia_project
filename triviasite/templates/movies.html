@@ -1,26 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
     <row>
-    <div  class="genre-select-container">
-        <label for="genre-select">Genre:</label>
-        <select id="genre-select" onchange="redirectToPage(this.id)">
+    <div class="filter-container">
+        <div  class="genre-select-container">
+            <label for="genre-select">Genre:</label>
+            <select class='genre-select' id="genre-select" onchange="redirectToPage(this.id)">
 
-                <option value="{{genre_filter}}">{{genre_filter| default('All',true)}}</option>
-                {% for genre in genres %}
-                    <option value="{{ url_for('main.movies',genre_filter= genre, year_filter=year_filter) }}">{{genre}}</option>
+                    <option value="{{genre_filter}}">{{genre_filter| default('All',true)}}</option>
+                    {% for genre in genres %}
+                        <option value="{{ url_for('main.movies',genre_filter= genre, year_filter=year_filter) }}">{{genre}}</option>
+                    {% endfor %}
+            </select>
+        </div>
+        <div  class="year-select-container">
+            <label for="year-select">Year:</label>
+            <select class='genre-select' id="year-select" onchange="redirectToPage(this.id)">
+                <option value="{{year_filter}}">{{year_filter ~ 's' if year_filter is not none else 'All'}}</option>
+                {% for year in range(1,8) %}
+                    {% set decade_start = year*10 + 1950 %}
+                    {% set year_filter = decade_start|string%}
+                    <option value="{{ url_for('main.movies',genre_filter= genre_filter,year_filter = year_filter) }}">{{year_filter}}s</option>
                 {% endfor %}
-        </select>
-    </div>
-    <div  class="year-select-container">
-        <label for="year-select">Year:</label>
-        <select id="year-select" onchange="redirectToPage(this.id)">
-            <option value="{{year_filter}}">{{year_filter ~ 's' if year_filter is not none else 'All'}}</option>
-            {% for year in range(1,8) %}
-                {% set decade_start = year*10 + 1950 %}
-                {% set year_filter = decade_start|string%}
-                <option value="{{ url_for('main.movies',genre_filter= genre_filter,year_filter = year_filter) }}">{{year_filter}}s</option>
-            {% endfor %}
-        </select>
+            </select>
+        </div>
     </div>
     </row>   
     <div class="flashcard_movie">
