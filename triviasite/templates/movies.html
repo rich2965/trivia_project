@@ -30,11 +30,9 @@
                 <div class="swiper-slide"><img src="{{image}}"></div>
                 {% endfor %}
             </div>
-              <!-- Add navigation buttons -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
             <!-- Add pagination counter -->
             <div class="swiper-pagination"></div>
+            <div class="swiper-counter">1/{{movie.still_imagery|length}}</div>
         </div>
         <div class="back">
             <table>

@@ -49,16 +49,12 @@ var mySwiper = new Swiper('.swiper-container', {
     el: '.swiper-pagination',
     clickable: true,
   },
-});
-
-// Add event listeners to the navigation buttons
-var prevButton = document.querySelector('.swiper-button-prev');
-var nextButton = document.querySelector('.swiper-button-next');
-prevButton.addEventListener('click', function(event) {
-  event.stopPropagation(); // Prevent click event from propagating
-  // Your code for handling the click event for the prev button
-});
-nextButton.addEventListener('click', function(event) {
-  event.stopPropagation(); // Prevent click event from propagating
-  // Your code for handling the click event for the next button
+  on: {
+    slideChange: function () {
+      var activeSlideIndex = this.activeIndex + 1;
+      var totalSlides = this.slides.length;
+      var counter = document.querySelector('.swiper-counter');
+      counter.textContent = activeSlideIndex + '/' + totalSlides;
+    }
+  }
 });
