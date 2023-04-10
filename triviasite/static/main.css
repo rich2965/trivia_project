@@ -49,7 +49,7 @@
   font-size: 14px;
 }
 .menu-item {
-  flex-basis: 33%;
+  flex-basis: 25%;
   height: 60px;
   vertical-align: middle;
 }
@@ -95,7 +95,7 @@ body {
 
 
 }
-.flashcard_movie {
+.flashcard_movie, .flashcard_person {
   font-weight: 500;
   background: #2E333A;
   width: 100%;

@@ -20,3 +20,13 @@ class Movie(db.Model):
     still_image = db.Column(db.Text,nullable=False)
     still_imagery = db.Column(db.Text,nullable=False)
     storyline = db.Column(db.Text,nullable=False)
+
+class People(db.Model):
+    __tablename__ = 'people_popular_vw'
+    person_id = db.Column(db.Text,primary_key=True)
+    primaryName = db.Column(db.Text,nullable=False)
+    birthYear = db.Column(db.Text,nullable=False)
+    deathYear = db.Column(db.Text,nullable=False)
+    primaryProfession = db.Column(db.Text,nullable=False)
+    knownForList = db.Column(db.Text,nullable=False)
+    imagery = db.Column(db.Text,nullable=False)

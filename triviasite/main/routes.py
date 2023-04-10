@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import request, render_template
 
-from triviasite.models import Question,Movie
+from triviasite.models import Question,Movie,People
 
 main = Blueprint('main',__name__)
 
@@ -47,3 +47,28 @@ def movies():
     else:
         movie = Movie.query.first()
     return render_template('movies.html',active_menu=active_menu,movie=movie,genres=genres,genre_filter=genre_filter,year_filter=year_filter)
+
+@main.route("/people",)
+def people():
+    active_menu = 'people' # set the active menu item
+    person = People.query.first()
+    primProf_filter = request.args.get('primProf_filter',None,type=str)
+    year_filter = request.args.get('year_filter',None,type=str)
+    if year_filter:
+        year_search = f"%{year_filter[:3]}%"
+    search_prof_text = "%{}%".format(primProf_filter)
+    primProf_query = People.query.with_entities(People.primaryProfession).distinct().all()
+    primProf_list = []
+    for prof_group in primProf_query:
+        for prof in prof_group[0].split(','):
+            if prof not in primProf_list:
+                primProf_list.append(prof)
+    if (primProf_filter and year_filter):
+        person = People.query.filter(People.primaryProfession.like(search_prof_text)).filter(People.birthYear.like(year_search)).first()
+    elif primProf_filter:
+        person = People.query.filter(People.primaryProfession.like(search_prof_text)).first()
+    elif year_filter:
+        person = People.query.filter(People.birthYear.like(year_search)).first()
+    else:
+        person = People.query.first()
+    return render_template('people.html',active_menu=active_menu,person=person,primProf_list=primProf_list,primProf_filter=primProf_filter,year_filter=year_filter)

@@ -1,6 +1,6 @@
 //// Used for filtering the genre 
 var categorySelect = document.getElementById('genre-select');
-var cards = document.querySelectorAll('.flashcard,.flashcard_movie');
+var cards = document.querySelectorAll('.flashcard,.flashcard_movie,.flashcard_person');
 
 function redirectToPage(id) {
     var selectElement = document.getElementById(id);

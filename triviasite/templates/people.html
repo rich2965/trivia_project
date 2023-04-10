@@ -3,12 +3,12 @@
     <row>
     <div class="filter-container">
         <div  class="genre-select-container">
-            <label for="genre-select">Genre:</label>
+            <label for="genre-select">Type:</label>
             <select class='genre-select' id="genre-select" onchange="redirectToPage(this.id)">
 
-                    <option value="{{genre_filter}}">{{genre_filter| default('All',true)}}</option>
-                    {% for genre in genres %}
-                        <option value="{{ url_for('main.movies',genre_filter= genre, year_filter=year_filter) }}">{{genre}}</option>
+                    <option value="{{primProf_filter}}">{{primProf_filter| default('All',true)}}</option>
+                    {% for prof in primProf_list %}
+                        <option value="{{ url_for('main.people',primProf_filter= prof, year_filter=year_filter) }}">{{prof}}</option>
                     {% endfor %}
             </select>
         </div>
@@ -19,49 +19,49 @@
                 {% for year in range(1,8) %}
                     {% set decade_start = year*10 + 1950 %}
                     {% set year_filter = decade_start|string%}
-                    <option value="{{ url_for('main.movies',genre_filter= genre_filter,year_filter = year_filter) }}">{{year_filter}}s</option>
+                    <option value="{{ url_for('main.people',primProf_filter= primProf_filter,year_filter = year_filter) }}">{{year_filter}}s</option>
                 {% endfor %}
             </select>
         </div>
     </div>
     </row>   
-    <div class="flashcard_movie">
+    <div class="flashcard_person">
         <div class="front image-container swiper-container " id="imageContainer" >
             <div class="swiper-wrapper">
-                {% for image in movie.still_imagery %} 
+                {% for image in person.imagery %} 
                 <div class="swiper-slide"><img src="{{image}}"></div>
                 {% endfor %}
             </div>
             <!-- Add pagination counter -->
             <div class="swiper-pagination"></div>
-            <div class="swiper-counter">1/{{movie.still_imagery|length}}</div>
+            <div class="swiper-counter">1/{{person.imagery|length}}</div>
         </div>
         <div class="back">
             <table>
                 <tr>
                     <td>Name</td>
-                    <td>{{ movie.primaryTitle }}</td>
+                    <td>{{ person.primaryName }}</td>
                 </tr>
                 <tr>
-                    <td>Year</td>
-                    <td>{{ movie.startYear }}</td>
+                    <td>Birth Year</td>
+                    <td>{{ person.birthYear }}</td>
                 </tr>
                 <tr>
                     <td>Source</td>
                     <td>IMDb</td>
                 </tr>
                 <tr>
-                    <td>Genre(s)</td>
-                    {% set genre_list =  movie.genres.split(",") %}
-                    <td>{% for item in genre_list %}<li>{{item}}</li>{% endfor %} </td>
+                    <td>Profession(s)</td>
+                    {% set prof_list =  person.primaryProfession.split(",") %}
+                    <td>{% for item in prof_list %}<li>{{item}}</li>{% endfor %} </td>
                 </tr>
                 <tr>
-                    <td>Storyline</td>
-                    <td>{{ movie.storyline }}</td>
+                    <td>Known For</td>
+                    <td>{% for item in person.knownForList %}<li>{{item}}</li>{% endfor %}</td>
                 </tr>
             </table>
         </div>
     </div>  
-        <button class="generate-button" onclick="refreshPage()">Generate Random Movie</button>
+        <button class="generate-button" onclick="refreshPage()">Generate Random Person</button>
     </div>
 {% endblock content %}

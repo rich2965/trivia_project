@@ -33,6 +33,9 @@
           <div class="menu-item {% if active_menu == 'movies' %} active-menu{% endif %}">
             <a href="{{url_for('main.movies')}}"><img src="../static/icons/{% if active_menu == 'movies' %}movie_active{% else %}movie_inactive{% endif %}.png"></i></a>
           </div>
+          <div class="menu-item {% if active_menu == 'people' %} active-menu{% endif %}">
+            <a href="{{url_for('main.people')}}"><img src="../static/icons/{% if active_menu == 'people' %}person_active{% else %}person_inactive{% endif %}.png"></i></a>
+          </div>
           <div class="menu-item {% if active_menu == 'about' %} active-menu{% endif %}">
             <a href="{{url_for('main.about')}}"><img src="../static/icons/{% if active_menu == 'about' %}about_active{% else %}about_inactive{% endif %}.png"></i></a>
           </div>
