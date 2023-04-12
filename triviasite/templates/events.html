@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+    <row>
+    <div class="filter-container">
+        <div  class="year-select-container">
+            <label for="year-select">Year:</label>
+            <select class='genre-select' id="year-select" onchange="redirectToPage(this.id)">
+                <option value="{{year_filter}}">{{year_filter ~ 's' if year_filter is not none else 'All'}}</option>
+                {% for year in range(1,6) %}
+                    {% set decade_start = year*10 + 1940 %}
+                    {% set year_filter = decade_start|string%}
+                    <option value="{{ url_for('main.events',genre_filter= genre_filter,year_filter = year_filter) }}">{{year_filter}}s</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    </row>   
+        <div class="flashcard_event">
+            <div class="front">
+                <table class = "event">
+                    {% for event in events %}
+                    <tr class = "event">
+                        <td class = "event">{{ event.event_date }}</td>
+                        <td class = "event">{{ event.event_desc }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                
+            </div>
+            <div class="back-event back">
+                <p>{{ events[0].event_year }}</p>
+            </div>
+        </div>  
+        <button class="generate-button" onclick="refreshPage()">Generate Random Event</button>
+    </div>
+{% endblock content %}

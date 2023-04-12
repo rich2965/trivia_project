@@ -30,3 +30,11 @@ class People(db.Model):
     primaryProfession = db.Column(db.Text,nullable=False)
     knownForList = db.Column(db.Text,nullable=False)
     imagery = db.Column(db.Text,nullable=False)
+
+class Event(db.Model):
+    __tablename__ = 'events_vw'
+    id =  db.Column(db.Integer,primary_key=True)
+    event_year = db.Column(db.Text,primary_key=True)
+    event_date = db.Column(db.Text,nullable=False)
+    event_type = db.Column(db.Text,nullable=False)
+    event_desc = db.Column(db.Text,nullable=False)

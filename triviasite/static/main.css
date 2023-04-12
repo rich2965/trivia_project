@@ -90,11 +90,21 @@ body {
     perspective: 500px;
     margin-bottom: 15px;
     text-align: center;
-
-    
-
-
 }
+.flashcard_event {
+  font-weight: 500;
+  background: #3a3a3d;
+  width: 100%;
+  min-height: 100px;
+  height: 450px;
+  border: 3px solid #586069;
+  border-radius: 5px;
+  position: relative;
+  perspective: 500px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
 .flashcard_movie, .flashcard_person {
   font-weight: 500;
   background: #2E333A;
@@ -105,7 +115,6 @@ body {
   position: relative;
   perspective: 1000px;
   margin-bottom: 20px;
-
 }
 
 .front, .back {
@@ -127,6 +136,16 @@ body {
     transform: rotateY(180deg);
     background-color:#2E333A;
     color: #D7DADC;
+}
+
+.back-event {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+
 }
 
 .flipped .front {
@@ -168,8 +187,9 @@ img {
   font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.7);
   margin-bottom: 60px;
-  
+  width: 100%;
 }
 
 .generate-button:hover {
@@ -243,6 +263,26 @@ img {
     background-color: #22272E;
   }
 
+  table.event {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  td.event, th.event {
+    border: 2px solid #586069;
+    padding: 8px;
+    text-align: left;
+    font-size: 16px;
+    min-width: 120px;
+  }
+  tr.event:nth-child(even) {
+    background-color: #3a3a3d;
+  }
+
+  tr.event:nth-child(odd) {
+    background-color: #3a3a3d;
+  }
 
 /* Dropdown Box on Questions Page Styling */
 .category-select-container{

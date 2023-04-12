@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import request, render_template
-
-from triviasite.models import Question,Movie,People
+import random
+from triviasite.models import Question,Movie,People,Event
 
 main = Blueprint('main',__name__)
 
@@ -72,3 +72,19 @@ def people():
     else:
         person = People.query.first()
     return render_template('people.html',active_menu=active_menu,person=person,primProf_list=primProf_list,primProf_filter=primProf_filter,year_filter=year_filter)
+
+@main.route("/events")
+def events():
+    active_menu = 'events'
+    year_filter = request.args.get('year_filter',None,type=str)
+
+    if year_filter:
+        #year_search = f"%{year_filter[:3]}%"
+        year_search = str(int(year_filter) + random.randint(1, 9)) #Generate a random year from the decade selected
+        events_query = Event.query.filter(Event.event_year.like(year_search)).limit(3)
+        events = events_query.all()
+    else:
+        random_year = str(random.randint(1950, 2000))
+        events_query = Event.query.filter(Event.event_year.like(random_year)).limit(3)
+        events = events_query.all()
+    return render_template('events.html',active_menu=active_menu,events = events,year_filter=year_filter)
