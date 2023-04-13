@@ -20,6 +20,8 @@ class Movie(db.Model):
     still_image = db.Column(db.Text,nullable=False)
     still_imagery = db.Column(db.Text,nullable=False)
     storyline = db.Column(db.Text,nullable=False)
+    characters = db.Column(db.Text,nullable=False)
+    directorName = db.Column(db.Text,nullable=False)
 
 class People(db.Model):
     __tablename__ = 'people_popular_vw'

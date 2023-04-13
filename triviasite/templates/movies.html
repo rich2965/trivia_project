@@ -51,6 +51,10 @@
                     <td>IMDb</td>
                 </tr>
                 <tr>
+                    <td>Director</td>
+                    <td>{{ movie.directorName }}</td>
+                </tr>
+                <tr>
                     <td>Genre(s)</td>
                     {% set genre_list =  movie.genres.split(",") %}
                     <td>{% for item in genre_list %}<li>{{item}}</li>{% endfor %} </td>
@@ -58,6 +62,10 @@
                 <tr>
                     <td>Storyline</td>
                     <td>{{ movie.storyline }}</td>
+                </tr>
+                <tr>
+                    <td>Cast</td>
+                    <td>{% for character in movie.characters %}<li>{{character}}</li>{% endfor %} </td>
                 </tr>
             </table>
         </div>
