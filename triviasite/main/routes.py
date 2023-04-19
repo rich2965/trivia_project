@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import request, render_template
 import random
-from triviasite.models import Question,Movie,People,Event
+from triviasite.models import Question,Movie,People,Event,Country
 
 main = Blueprint('main',__name__)
 
@@ -88,3 +88,13 @@ def events():
         events_query = Event.query.filter(Event.event_year.like(random_year)).limit(3)
         events = events_query.all()
     return render_template('events.html',active_menu=active_menu,events = events,year_filter=year_filter)
+
+@main.route("/geography")
+def geography():
+    active_menu = 'geography'
+    country = Country.query.first()
+    continent_filter = request.args.get('continent_filter',None,type=str)
+    if continent_filter:
+        country = Country.query.filter(Country.continent.like(continent_filter)).first()
+    continents = Question.query.with_entities(Country.continent).distinct()
+    return render_template('geography.html',active_menu=active_menu,country=country,continent_filter=continent_filter, continents=continents)

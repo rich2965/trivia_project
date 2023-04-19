@@ -6,6 +6,7 @@
             <label for="year-select">Year:</label>
             <select class='genre-select' id="year-select" onchange="redirectToPage(this.id)">
                 <option value="{{year_filter}}">{{year_filter ~ 's' if year_filter is not none else 'All'}}</option>
+                <option value="{{ url_for('main.events') }}">All</option>
                 {% for year in range(1,6) %}
                     {% set decade_start = year*10 + 1940 %}
                     {% set year_filter = decade_start|string%}

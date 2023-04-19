@@ -40,3 +40,17 @@ class Event(db.Model):
     event_date = db.Column(db.Text,nullable=False)
     event_type = db.Column(db.Text,nullable=False)
     event_desc = db.Column(db.Text,nullable=False)
+
+class Country(db.Model):
+    __tablename__ = 'countries_vw'
+    name = db.Column(db.Text,primary_key=True)
+    continent = db.Column(db.Text,nullable=False)
+    latitude = db.Column(db.Text,nullable=False)
+    longitude = db.Column(db.Text,nullable=False)
+    capital_city = db.Column(db.Text,nullable=False)
+    population = db.Column(db.Text,nullable=False)
+    languages = db.Column(db.Text,nullable=False)
+    currency = db.Column(db.Text,nullable=False)
+    points_of_interest = db.Column(db.Text,nullable=False)
+    geography_nature = db.Column(db.Text,nullable=False)
+    neighbor_countries = db.Column(db.Text,nullable=False)

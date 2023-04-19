@@ -7,6 +7,7 @@
             <select class='genre-select' id="genre-select" onchange="redirectToPage(this.id)">
 
                     <option value="{{genre_filter}}">{{genre_filter| default('All',true)}}</option>
+                    <option value="{{ url_for('main.movies',genre_filter= '', year_filter=year_filter) }}">All</option>
                     {% for genre in genres %}
                         <option value="{{ url_for('main.movies',genre_filter= genre, year_filter=year_filter) }}">{{genre}}</option>
                     {% endfor %}

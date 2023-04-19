@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div  class="continent-select-container">
+        <label for="continent-select">Continent:</label>
+        <select id="continent-select" onchange="redirectToPage(this.id)">
+
+                <option value="{{continent_filter}}">{{continent_filter| default('All',true)}}</option>
+                <option value="{{ url_for('main.geography') }}">All</option>
+                {% for continent in continents%}
+                    <option value="{{ url_for('main.geography',continent_filter = continent[0]) }}">{{continent[0]}}</option>
+                {% endfor %}
+        </select>
+    </div>
+    <div class="map-config-container">
+        <label class="toggle">
+            <span class="toggle-label">Cities</span>
+            <input class="toggle-checkbox toggle-cities" type="checkbox" onclick="if (this.checked) {initMap(mapConfig.show_cities='on')} else {initMap(mapConfig.show_cities='off')}">
+            <div class="toggle-switch"></div>
+        </label>
+        <label class="toggle">
+            <span class="toggle-label">Landscape</span>
+            <input class="toggle-checkbox toggle-landscape" type="checkbox" onclick="if (this.checked) {initMap(mapConfig.show_landscape='on')} else {initMap(mapConfig.show_landscape='off')}">
+            <div class="toggle-switch"></div>
+        </label>  
+    </div> 
+    <div class="flashcard_movie">
+        <div class="front" id="mapContainer"  data-latitude="{{ country.latitude }}" data-longitude="{{country.longitude }}">
+            <div id="map"></div>
+        </div>
+        <div class="back">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ country.name }}</td>
+                </tr>
+                <tr>
+                    <td>Capital</td>
+                    <td>{{ country.capital_city }}</td>
+                </tr>
+                <tr>
+                    <td>Population</td>
+                    <td>{{ country.population }}</td>
+                </tr>
+                <tr>
+                    <td>Language(s)</td>
+                    <td>{{ country.languages}}</td>
+                </tr>
+                <tr>
+                    <td>Currency</td>
+                    <td>{{ country.currency }}</td>
+                </tr>
+                <tr>
+                    <td>Points of Interest</td>
+                    <td>{{ country.points_of_interest }}</td>
+                </tr>
+                <tr>
+                    <td>Natural Landmarks</td>
+                    <td>{{ country.geography_nature }}</td>
+                </tr>
+                <tr>
+                    <td>Neighbors</td>
+                    <td>{{ country.neighbor_countries }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>  
+        <button class="generate-button" onclick="refreshPage()">Generate Random Country</button>
+    </div>
+{% endblock content %}

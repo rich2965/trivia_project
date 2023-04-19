@@ -5,6 +5,7 @@
         <select id="category-select" onchange="redirectToPage(this.id)">
 
                 <option value="{{category_filter}}">{{category_filter| default('All',true)}}</option>
+                <option value="{{ url_for('main.home') }}">All</option>
                 {% for category in categories %}
                     <option value="{{ url_for('main.home',category_filter = category[0]) }}">{{category[0]}}</option>
                 {% endfor %}

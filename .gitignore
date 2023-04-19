@@ -1,2 +1,3 @@
 trivia_qa
 *.cpython-39.pyc
+triviasite/config.py
