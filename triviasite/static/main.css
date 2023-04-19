@@ -285,10 +285,9 @@ img {
     background-color: #3a3a3d;
   }
 
-/* Dropdown Box on Questions Page Styling */
-.category-select-container, .continent-select-container{
-  display: inline-block;
-  width: auto;
+/* Dropdown Box across the pages */
+.filter-select-container, .year-select-container {
+  width: 50%;
   background-color: #22272E;
   border: 1px solid #586069;
   border-radius: 4px;
@@ -296,21 +295,31 @@ img {
   margin-bottom: 10px
 }
 
-
-/* Dropdown Box on Movie Page Styling */
-.filter-container {
+.filter-options-container {
   display: flex; /* display the container as a flex container */
   flex-wrap:nowrap; /* allow the boxes to wrap to the next row if necessary */
 }
 
-.genre-select-container, .year-select-container {
-  display: inline-block;
-  width: 50%;
-  background-color: #2E333A;
-  border: 1px solid #586069;
-  border-radius: 4px;
-  padding: 10px;
-  margin-bottom: 10px;
+
+.filter-select-container label, .year-select-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.filter-select-container button, .year-select-container button {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.dropdown-menu {
+  max-height: 400px; /* set the maximum height to 200 pixels */
+  overflow-y: scroll; /* enable vertical scrolling */
+}
+
+.dropdown-toggle::after{
+  float:right;
+  margin-top: 7px;
 }
 
 label {

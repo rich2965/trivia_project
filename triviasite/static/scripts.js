@@ -59,135 +59,154 @@ var mySwiper = new Swiper('.swiper-container', {
   }
 });
 
-///Calling Google Maps
+// Components Unique to the Geography page
+if (window.location.href.includes("geography")) {
+  // create an object containing all variables you want to store in localstorage
+  var mapConfig = {
+    show_cities: "off",
+    show_landscape: "off"
+  };
 
-// create an object containing all variables you want to store in localstorage
-var mapConfig = {
-  show_cities: "off",
-  show_landscape: "off"
-};
-console.log(mapConfig)
 
+  // Check to see if mapConfig exists in localStorage
+  if (localStorage.getItem("mapConfig") !== null) {
+    // retrieve the JSON string from localStorage
+    var mapConfigString = localStorage.getItem("mapConfig");
+    // convert the JSON string back to an object
+    var mapConfig_prev = JSON.parse(mapConfigString);
+    mapConfig.show_cities = mapConfig_prev.show_cities;
+    mapConfig.show_landscape = mapConfig_prev.show_landscape;
+  }
 
-// Check to see if mapConfig exists in localStorage
-if (localStorage.getItem("mapConfig") !== null) {
-  // retrieve the JSON string from localStorage
-  var mapConfigString = localStorage.getItem("mapConfig");
-  console.log(mapConfigString)
-  // convert the JSON string back to an object
-  var mapConfig_prev = JSON.parse(mapConfigString);
-  mapConfig.show_cities = mapConfig_prev.show_cities;
-  mapConfig.show_landscape = mapConfig_prev.show_landscape;
-  console.log(mapConfig)
-}
+  // check the value of "show_cities" and set the toggle button state accordingly
+  if (mapConfig.show_cities === "on") {
+    // set the toggle button to the "on" state
+    document.querySelector(".toggle-cities").checked = true;
+  } else {
+    // set the toggle button to the "off" state
+    document.querySelector(".toggle-cities").checked = false;
+  }
 
-// check the value of "show_cities" and set the toggle button state accordingly
-if (mapConfig.show_cities === "on") {
-  // set the toggle button to the "on" state
-  document.querySelector(".toggle-cities").checked = true;
-} else {
-  // set the toggle button to the "off" state
-  document.querySelector(".toggle-cities").checked = false;
-}
-
-// check the value of "show_landscape" and set the toggle button state accordingly
-if (mapConfig.show_landscape === "on") {
-  // set the toggle button to the "on" state
-  document.querySelector(".toggle-landscape").checked = true;
-} else {
-  // set the toggle button to the "off" state
-  document.querySelector(".toggle-landscape").checked = false;
-}
-
-function initMap() {
-  var latitude = parseFloat(document.getElementById('mapContainer').getAttribute('data-latitude'));
-  var longitude = parseFloat(document.getElementById('mapContainer').getAttribute('data-longitude'));
-  var location = {lat: latitude, lng: longitude}; 
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 5,
-    center: location,
-    streetViewControl: false,
-    mapTypeControl: false,
-    fullscreenControl: false,
-    zoomControl: false,
-    disableDefaultUI: true, // Disable default UI
-    keyboardShortcuts: false, // Disable keyboard shortcuts
-    mapTypeControlOptions: {
-      mapTypeIds: []
-    }, // Remove "Terms of Use" link
-    styles: [
-    {
-      featureType: "all",
-      elementType: "labels",
-      stylers: [
-        { visibility: "off" }
-      ]
-    },
-    {
-      featureType: "all",
-      elementType: "geometry",
-      stylers: [
-        { visibility: "on" }
-      ]
-    },
+  // check the value of "show_landscape" and set the toggle button state accordingly
+  if (mapConfig.show_landscape === "on") {
+    // set the toggle button to the "on" state
+    document.querySelector(".toggle-landscape").checked = true;
+  } else {
+    // set the toggle button to the "off" state
+    document.querySelector(".toggle-landscape").checked = false;
+  }
+  function initMap() {
+    var latitude = parseFloat(document.getElementById('mapContainer').getAttribute('data-latitude'));
+    var longitude = parseFloat(document.getElementById('mapContainer').getAttribute('data-longitude'));
+    var location = {lat: latitude, lng: longitude}; 
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 5,
+      center: location,
+      streetViewControl: false,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      zoomControl: false,
+      disableDefaultUI: true, // Disable default UI
+      keyboardShortcuts: false, // Disable keyboard shortcuts
+      mapTypeControlOptions: {
+        mapTypeIds: []
+      }, // Remove "Terms of Use" link
+      styles: [
       {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{visibility: 'off'}]
-      },
-      {
-        featureType: 'administrative.province',
-        elementType: 'geometry.stroke',
-        stylers: [{visibility: 'off'}]
-      },
-      {
-        featureType: 'administrative.locality',
-        elementType: 'geometry.stroke',
-        stylers: [{visibility: 'off'}]
-      },
-      {
-        featureType: 'administrative.country',
-        elementType: 'geometry.stroke',
-        stylers: [{color: '#000000'}, {weight: 2}]
-      },
-      {
-        featureType: "administrative.country",
+        featureType: "all",
         elementType: "labels",
         stylers: [
           { visibility: "off" }
         ]
       },
       {
-        featureType: "administrative.locality",
-        elementType: "labels",
+        featureType: "all",
+        elementType: "geometry",
         stylers: [
-          { visibility: mapConfig.show_cities }
+          { visibility: "on" }
         ]
       },
-      {
-        featureType: "landscape.natural",
-        elementType: "labels",
-        stylers: [
-          { visibility: mapConfig.show_landscape }
-        ]
-      },
-      {
-        featureType: "water",
-        elementType: "labels",
-        stylers: [
-          { visibility: mapConfig.show_landscape }
-        ]
-      }
-  ]
+        {
+          featureType: 'road',
+          elementType: 'geometry',
+          stylers: [{visibility: 'off'}]
+        },
+        {
+          featureType: 'administrative.province',
+          elementType: 'geometry.stroke',
+          stylers: [{visibility: 'off'}]
+        },
+        {
+          featureType: 'administrative.locality',
+          elementType: 'geometry.stroke',
+          stylers: [{visibility: 'off'}]
+        },
+        {
+          featureType: 'administrative.country',
+          elementType: 'geometry.stroke',
+          stylers: [{color: '#000000'}, {weight: 2}]
+        },
+        {
+          featureType: "administrative.country",
+          elementType: "labels",
+          stylers: [
+            { visibility: "off" }
+          ]
+        },
+        {
+          featureType: "administrative.locality",
+          elementType: "labels",
+          stylers: [
+            { visibility: mapConfig.show_cities }
+          ]
+        },
+        {
+          featureType: "landscape.natural",
+          elementType: "labels",
+          stylers: [
+            { visibility: mapConfig.show_landscape }
+          ]
+        },
+        {
+          featureType: "water",
+          elementType: "labels",
+          stylers: [
+            { visibility: mapConfig.show_landscape }
+          ]
+        }
+    ]
 
-  });
-  var marker = new google.maps.Marker({
-    position: location,
-    map: map
-  });
-  /// Set the map config values into localstorage
-  var mapConfigString = JSON.stringify(mapConfig);
-  localStorage.setItem("mapConfig", mapConfigString);
-  console.log(mapConfigString)
+    });
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+    /// Set the map config values into localstorage
+    var mapConfigString = JSON.stringify(mapConfig);
+    localStorage.setItem("mapConfig", mapConfigString);
+  }
+  initMap();
 }
-initMap();
+
+// Updated Dropdown Menu using bootstrap
+const dropdownButtonYear = document.querySelector('#dropdown-button-year');
+const dropdownItemsYear = document.querySelectorAll('.dropdown-item-year');
+const dropdownButtonFilter = document.querySelector('#dropdown-button-filter');
+const dropdownItemsFilter = document.querySelectorAll('.dropdown-item-filter');
+console.log(dropdownButtonYear)
+// Loop through each dropdown item
+dropdownItemsYear.forEach(item => {
+  // Check if the item's text content matches the button's text content
+  if (item.getAttribute('value')=== dropdownButtonYear.value) {
+    // Add the "active" class to the corresponding <li> element
+    item.classList.add('active');
+  }
+});
+
+dropdownItemsFilter.forEach(item => {
+  // Check if the item's text content matches the button's text content
+  if (item.getAttribute('value')=== dropdownButtonFilter.value) {
+    // Add the "active" class to the corresponding <li> element
+    item.classList.add('active');
+  }
+});

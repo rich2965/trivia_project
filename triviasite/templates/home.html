@@ -1,16 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div  class="category-select-container">
-        <label for="category-select">Category:</label>
-        <select id="category-select" onchange="redirectToPage(this.id)">
-
-                <option value="{{category_filter}}">{{category_filter| default('All',true)}}</option>
-                <option value="{{ url_for('main.home') }}">All</option>
-                {% for category in categories %}
-                    <option value="{{ url_for('main.home',category_filter = category[0]) }}">{{category[0]}}</option>
-                {% endfor %}
-        </select>
-    </div>
+    <div class="filter-options-container">
+        <div  class="filter-select-container">
+            <label for="category-select">Category:</label>
+            {% if category_filter is none %}
+                {% set category_filter_display = 'All' %}
+             {% else %}
+                {% set category_filter_display = category_filter %}
+            {% endif %}
+            <button id="dropdown-button-filter" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" value ="{{category_filter_display}}">
+                {{category_filter_display| default('All',true)}}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item dropdown-item-filter" href="{{ url_for('main.home') }}" value="All">All</a></li>
+            {% for category in categories %}
+                <li><a class="dropdown-item dropdown-item-filter" href="{{ url_for('main.home',category_filter = category[0]) }}" value ="{{category[0]}}">{{category[0]}}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div> 
     {% for question in questions.items %}
 
                 <div class="flashcard" data-category= {{question.category}}>

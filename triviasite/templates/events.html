@@ -1,21 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-    <row>
-    <div class="filter-container">
+    <div class="filter-options-container">
         <div  class="year-select-container">
             <label for="year-select">Year:</label>
-            <select class='genre-select' id="year-select" onchange="redirectToPage(this.id)">
-                <option value="{{year_filter}}">{{year_filter ~ 's' if year_filter is not none else 'All'}}</option>
-                <option value="{{ url_for('main.events') }}">All</option>
-                {% for year in range(1,6) %}
-                    {% set decade_start = year*10 + 1940 %}
-                    {% set year_filter = decade_start|string%}
-                    <option value="{{ url_for('main.events',genre_filter= genre_filter,year_filter = year_filter) }}">{{year_filter}}s</option>
-                {% endfor %}
-            </select>
+            {% if year_filter is none %}
+                {% set year_filter = 'All' %}
+            {% endif %}
+            <button id="dropdown-button-year" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" value ="{{year_filter}}">
+                {{year_filter ~ 's' if year_filter != 'All' else 'All'}}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item dropdown-item-year" href="{{ url_for('main.events') }}" value="All">All</a></li>
+            {% set decades = (years_range[1]-years_range[0])/10 %}
+            {% for decade in range(0,decades|int) %}
+                {% set year = decade*10 + years_range[0]%}
+                {% set year_filter = year|string%}
+                <li><a class="dropdown-item dropdown-item-year" href="{{ url_for('main.events',year_filter = year_filter) }}" value ="{{year_filter}}">{{year_filter}}s</a></li>
+            {% endfor %}
+            </ul>
         </div>
-    </div>
-    </row>   
+    </div> 
         <div class="flashcard_event">
             <div class="front">
                 <table class = "event">

@@ -1,6 +1,7 @@
 from flask import Blueprint
-from flask import request, render_template
+from flask import request, render_template,abort
 import random
+import math
 from triviasite.models import Question,Movie,People,Event,Country
 
 main = Blueprint('main',__name__)
@@ -29,6 +30,16 @@ def movies():
     movie = Movie.query.first()
     genre_filter = request.args.get('genre_filter',None,type=str)
     year_filter = request.args.get('year_filter',None,type=str)
+
+    # Pulls the years to populate the decades filter
+    years_query_result = Movie.query.with_entities(Movie.startYear).distinct().all()
+    years_list=[]
+    for year in years_query_result:
+        years_list.append(int(year[0]))
+    years_max = math.ceil(max(years_list)/10)*10
+    years_min = math.floor(min(years_list)/10)*10
+    years_range = (years_min,years_max)
+
     if year_filter:
         year_search = f"%{year_filter[:3]}%"
     search_category_text = "%{}%".format(genre_filter)
@@ -46,13 +57,27 @@ def movies():
         movie = Movie.query.filter(Movie.startYear.like(year_search)).first()
     else:
         movie = Movie.query.first()
-    return render_template('movies.html',active_menu=active_menu,movie=movie,genres=genres,genre_filter=genre_filter,year_filter=year_filter)
+    print(movie)
+    try:
+        return render_template('movies.html',active_menu=active_menu,movie=movie,genres=genres,genre_filter=genre_filter,year_filter=year_filter, years_range=years_range)
+    except:
+        abort(500)
 
 @main.route("/people",)
 def people():
     active_menu = 'people' # set the active menu item
     person = People.query.first()
     primProf_filter = request.args.get('primProf_filter',None,type=str)
+
+    # Pulls the years to populate the decades filter
+    years_query_result = People.query.with_entities(People.birthYear).distinct().all()
+    years_list=[]
+    for year in years_query_result:
+        years_list.append(int(year[0]))
+    years_max = math.ceil(max(years_list)/10)*10
+    years_min = math.floor(min(years_list)/10)*10
+    years_range = (years_min,years_max)
+
     year_filter = request.args.get('year_filter',None,type=str)
     if year_filter:
         year_search = f"%{year_filter[:3]}%"
@@ -71,13 +96,23 @@ def people():
         person = People.query.filter(People.birthYear.like(year_search)).first()
     else:
         person = People.query.first()
-    return render_template('people.html',active_menu=active_menu,person=person,primProf_list=primProf_list,primProf_filter=primProf_filter,year_filter=year_filter)
+    print(primProf_filter)
+    try:
+        return render_template('people.html',active_menu=active_menu,person=person,primProf_list=primProf_list,primProf_filter=primProf_filter,year_filter=year_filter,years_range=years_range)
+    except:
+        abort(500)
 
 @main.route("/events")
 def events():
     active_menu = 'events'
     year_filter = request.args.get('year_filter',None,type=str)
-
+    years_query_result = Event.query.with_entities(Event.event_year).distinct().all()
+    years_list=[]
+    for year in years_query_result:
+        years_list.append(int(year[0]))
+    years_max = math.ceil(max(years_list)/10)*10
+    years_min = math.floor(min(years_list)/10)*10
+    years_range = (years_min,years_max)
     if year_filter:
         #year_search = f"%{year_filter[:3]}%"
         year_search = str(int(year_filter) + random.randint(1, 9)) #Generate a random year from the decade selected
@@ -87,7 +122,10 @@ def events():
         random_year = str(random.randint(1950, 2000))
         events_query = Event.query.filter(Event.event_year.like(random_year)).limit(3)
         events = events_query.all()
-    return render_template('events.html',active_menu=active_menu,events = events,year_filter=year_filter)
+    try:
+        return render_template('events.html',active_menu=active_menu,events = events,year_filter=year_filter, years_range=years_range)
+    except:
+        abort(500)
 
 @main.route("/geography")
 def geography():
@@ -97,4 +135,8 @@ def geography():
     if continent_filter:
         country = Country.query.filter(Country.continent.like(continent_filter)).first()
     continents = Question.query.with_entities(Country.continent).distinct()
-    return render_template('geography.html',active_menu=active_menu,country=country,continent_filter=continent_filter, continents=continents)
+    try:
+        return render_template('geography.html',active_menu=active_menu,country=country,continent_filter=continent_filter, continents=continents)
+    except:
+        abort(500)
+

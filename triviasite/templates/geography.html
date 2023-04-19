@@ -1,15 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div  class="continent-select-container">
+<div class="dropdown">
+    <div  class="filter-select-container">
         <label for="continent-select">Continent:</label>
-        <select id="continent-select" onchange="redirectToPage(this.id)">
-
-                <option value="{{continent_filter}}">{{continent_filter| default('All',true)}}</option>
-                <option value="{{ url_for('main.geography') }}">All</option>
-                {% for continent in continents%}
-                    <option value="{{ url_for('main.geography',continent_filter = continent[0]) }}">{{continent[0]}}</option>
-                {% endfor %}
-        </select>
+        {% if continent_filter is none %}
+            {% set continent_filter = 'All' %}
+        {% endif %}
+        <button id="dropdown-button-year" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" value ="{{continent_filter}}">
+            {{continent_filter| default('All',true)}}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item dropdown-item-year" href="{{ url_for('main.geography') }}" value="All">All</a></li>
+        {% for continent in continents%}
+            <li><a class="dropdown-item dropdown-item-year" href="{{ url_for('main.geography',continent_filter = continent[0]) }}" value="{{continent[0]}}">{{continent[0]}}</a></li>
+        {% endfor %}
+        </ul>
     </div>
     <div class="map-config-container">
         <label class="toggle">

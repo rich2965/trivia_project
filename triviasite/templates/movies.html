@@ -1,31 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
-    <row>
-    <div class="filter-container">
-        <div  class="genre-select-container">
+    <div class="filter-options-container">
+        <div  class="filter-select-container">
             <label for="genre-select">Genre:</label>
-            <select class='genre-select' id="genre-select" onchange="redirectToPage(this.id)">
-
-                    <option value="{{genre_filter}}">{{genre_filter| default('All',true)}}</option>
-                    <option value="{{ url_for('main.movies',genre_filter= '', year_filter=year_filter) }}">All</option>
-                    {% for genre in genres %}
-                        <option value="{{ url_for('main.movies',genre_filter= genre, year_filter=year_filter) }}">{{genre}}</option>
-                    {% endfor %}
-            </select>
+            {% if genre_filter is none %}
+                {% set genre_filter_display = 'All' %}
+            {% else %}
+                {% set genre_filter_display = genre_filter %}
+            {% endif %}
+            <button id="dropdown-button-filter" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" value ="{{genre_filter_display}}">
+                {{genre_filter_display| default('All',true)}}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item dropdown-item-filter" href="{{ url_for('main.movies') }}" value="All">All</a></li>
+            {% for genre in genres%}
+                <li><a class="dropdown-item dropdown-item-filter" href="{{ url_for('main.movies',genre_filter= genre, year_filter=year_filter) }}" value="{{genre}}">{{genre}}</a></li>
+            {% endfor %}
+            </ul>
         </div>
         <div  class="year-select-container">
-            <label for="year-select">Year:</label>
-            <select class='genre-select' id="year-select" onchange="redirectToPage(this.id)">
-                <option value="{{year_filter}}">{{year_filter ~ 's' if year_filter is not none else 'All'}}</option>
-                {% for year in range(1,8) %}
-                    {% set decade_start = year*10 + 1950 %}
-                    {% set year_filter = decade_start|string%}
-                    <option value="{{ url_for('main.movies',genre_filter= genre_filter,year_filter = year_filter) }}">{{year_filter}}s</option>
-                {% endfor %}
-            </select>
+            <label for="year-select">Release Year:</label>
+            {% if year_filter is none %}
+                {% set year_filter = 'All' %}
+            {% endif %}
+            <button id="dropdown-button-year" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" value ="{{year_filter}}">
+                {{year_filter ~ 's' if year_filter != 'All' else 'All'}}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item dropdown-item-year" href="{{ url_for('main.movies',genre_filter= genre_filter) }}" value="All">All</a></li>
+            {% set decades = (years_range[1]-years_range[0])/10 %}
+            {% for decade in range(0,decades|int) %}
+                {% set year = decade*10 + years_range[0]%}
+                {% set year_filter = year|string%}
+                <li><a class="dropdown-item dropdown-item-year" href="{{ url_for('main.movies',genre_filter= genre_filter,year_filter = year_filter) }}" value ="{{year_filter}}">{{year_filter}}s</a></li>
+            {% endfor %}
+            </ul>
         </div>
     </div>
-    </row>   
     <div class="flashcard_movie">
         <div class="front image-container swiper-container " id="imageContainer" >
             <div class="swiper-wrapper">
