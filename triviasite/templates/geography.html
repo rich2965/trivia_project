@@ -28,7 +28,7 @@
             <div class="toggle-switch"></div>
         </label>  
     </div> 
-    <div class="flashcard_movie">
+    <div class="flashcard_geography">
         <div class="front" id="mapContainer"  data-latitude="{{ country.latitude }}" data-longitude="{{country.longitude }}">
             <div id="map"></div>
         </div>
@@ -36,7 +36,7 @@
             <table>
                 <tr>
                     <td>Name</td>
-                    <td>{{ country.name }}</td>
+                    <td><a href="https://en.wikipedia.org/wiki/{{ country.name }}">{{ country.name }}</a></td>
                 </tr>
                 <tr>
                     <td>Capital</td>
@@ -56,11 +56,13 @@
                 </tr>
                 <tr>
                     <td>Points of Interest</td>
-                    <td>{{ country.points_of_interest }}</td>
+                    {% set list = country.points_of_interest %}
+                    <td>{% for item in list.split(',') %}<li><a href="https://en.wikipedia.org/wiki/{{item}}">{{item}}</a></li>{% endfor %} </td>
                 </tr>
                 <tr>
                     <td>Natural Landmarks</td>
-                    <td>{{ country.geography_nature }}</td>
+                    {% set list = country.geography_nature %}
+                    <td>{% for item in list.split(',') %}<li><a href="https://en.wikipedia.org/wiki/{{item}}">{{item}}</a></li>{% endfor %} </td>
                 </tr>
                 <tr>
                     <td>Neighbors</td>

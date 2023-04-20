@@ -97,7 +97,7 @@ body {
   background: #3a3a3d;
   width: 100%;
   min-height: 100px;
-  height: 450px;
+  height: 400px;
   border: 3px solid #586069;
   border-radius: 5px;
   position: relative;
@@ -106,11 +106,11 @@ body {
   text-align: center;
 }
 
-.flashcard_movie, .flashcard_person {
+.flashcard_movie, .flashcard_person, .flashcard_geography {
   font-weight: 500;
   background: #2E333A;
   width: 100%;
-  height: 450px;
+  height: 400px;
   border: 3px solid #586069;
   border-radius: 5px;
   position: relative;
@@ -249,6 +249,14 @@ img {
     font-size: 16px;
   }
   
+/* Style the hyperlinks */
+td a, .article-content a{
+  color: #61AFEF;
+  text-decoration: underline;
+  position: relative;
+}
+
+
   /* Style the table header cells */
   th {
     background-color: #22272E;

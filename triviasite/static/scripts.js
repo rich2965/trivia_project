@@ -1,18 +1,22 @@
 //// Used for filtering the genre 
 var categorySelect = document.getElementById('genre-select');
-var cards = document.querySelectorAll('.flashcard,.flashcard_movie,.flashcard_person,.flashcard_event');
+var cards = document.querySelectorAll('.flashcard,.flashcard_movie,.flashcard_person,.flashcard_event,.flashcard_geography');
+var links = document.querySelectorAll('tr a,.article-content a'); //Select all links within the tables on a flashcard
 
-function redirectToPage(id) {
-    var selectElement = document.getElementById(id);
-    var selectedValue = selectElement.options[selectElement.selectedIndex].value;
-    if (selectedValue !== "") {
-        window.location.href = selectedValue;
-    }
-}
 
 //// Used by the Generate button at the bottom to refresh the page 
 function refreshPage(){
     location.reload();
+}
+
+
+// Used for hyperlinks within flashcards so that it doesn't flip the card upon click
+for (var i = 0; i < links.length; i++) {
+  links[i].target = "_blank"; // makes it so all links open a new tab
+  links[i].rel="noreferrer noopener" // to prevent possible malicious attacks from the pages you link to.
+  links[i].addEventListener('click', function(event) {
+    event.stopPropagation();
+  });
 }
 
 //// Used for flipping the flashcards upon click 
@@ -21,22 +25,6 @@ for (var i = 0; i < cards.length; i++) {
         this.classList.toggle('flipped');
     });
 }
-
-//// Used on the Movie page for when there are multiple images and if user wanted to change to another
-function changeImage(imageURL) {
-  document.getElementById("contentImage").src = imageURL.value;
-  
-  var activeButtons = document.querySelectorAll("button.active");
-
-  for (var i = 0; i < activeButtons.length; i++) {
-    activeButtons[i].classList.remove("active");
-  }
-  const myButton = document.getElementById(imageURL.id);
-  myButton.classList.add('active');
-  lastScrollPosition = parseInt(imageURL.id)
-  
-}
-
 
 //// Used for swiping on image container to get to the next image. 
 var mySwiper = new Swiper('.swiper-container', {

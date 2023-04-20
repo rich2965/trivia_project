@@ -52,7 +52,7 @@
             <table>
                 <tr>
                     <td>Name</td>
-                    <td>{{ movie.primaryTitle }}</td>
+                    <td><a href="https://en.wikipedia.org/wiki/{{ movie.primaryTitle }}">{{ movie.primaryTitle }}</a></td>
                 </tr>
                 <tr>
                     <td>Year</td>
@@ -64,7 +64,7 @@
                 </tr>
                 <tr>
                     <td>Director</td>
-                    <td>{{ movie.directorName }}</td>
+                    <td><a href="https://en.wikipedia.org/wiki/{{ movie.directorName }}">{{ movie.directorName }}</a></td>
                 </tr>
                 <tr>
                     <td>Genre(s)</td>
@@ -77,7 +77,12 @@
                 </tr>
                 <tr>
                     <td>Cast</td>
-                    <td>{% for character in movie.characters %}<li>{{character}}</li>{% endfor %} </td>
+                    <td>{% for character in movie.characters %}
+                        {% set character_name = character.split('(')[0] %}
+                        {% set start_index = character.rfind("(") + 1 %}
+                        {% set end_index = character.rfind(")") %}
+                        {% set actor = character[start_index:end_index] %}
+                        <li>{{character_name}} (<a href="https://en.wikipedia.org/wiki/{{actor}}">{{actor}}</a>)</li>{% endfor %} </td>
                 </tr>
             </table>
         </div>

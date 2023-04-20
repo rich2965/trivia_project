@@ -37,7 +37,6 @@
             </ul>
         </div>
     </div>
-    </div>   
     <div class="flashcard_person">
         <div class="front image-container swiper-container " id="imageContainer" >
             <div class="swiper-wrapper">
@@ -53,7 +52,7 @@
             <table>
                 <tr>
                     <td>Name</td>
-                    <td>{{ person.primaryName }}</td>
+                    <td><a href="https://en.wikipedia.org/wiki/{{ person.primaryName }}">{{ person.primaryName }}</a></td>
                 </tr>
                 <tr>
                     <td>Birth Year</td>
@@ -70,7 +69,7 @@
                 </tr>
                 <tr>
                     <td>Known For</td>
-                    <td>{% for item in person.knownForList %}<li>{{item}}</li>{% endfor %}</td>
+                    <td>{% for item in person.knownForList %}<li><a href="https://en.wikipedia.org/wiki/{{item}}">{{item}}</a></li>{% endfor %}</td>
                 </tr>
             </table>
         </div>
