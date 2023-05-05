@@ -13,10 +13,10 @@ def home():
     page = request.args.get('page',1,type=int)
     category_filter = request.args.get('category_filter',None,type=str)
     if category_filter:
-        questions = Question.query.filter_by(category=category_filter).paginate(page=page, per_page=4)
+        questions = Question.query.filter_by(category=category_filter).paginate(page=page, per_page=3)
     else:
-        questions = Question.query.paginate(page=page, per_page=4)
-    categories = Question.query.with_entities(Question.category).distinct()
+        questions = Question.query.paginate(page=page, per_page=3)
+    categories = Question.query.with_entities(Question.category).distinct().order_by(Question.category.asc())
     return render_template('home.html',active_menu=active_menu,questions = questions,categories=categories,category_filter=category_filter)
 
 @main.route("/about",)

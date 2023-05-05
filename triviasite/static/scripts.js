@@ -1,7 +1,7 @@
 //// Used for filtering the genre 
 var categorySelect = document.getElementById('genre-select');
 var cards = document.querySelectorAll('.flashcard,.flashcard_movie,.flashcard_person,.flashcard_event,.flashcard_geography');
-var links = document.querySelectorAll('tr a,.article-content a'); //Select all links within the tables on a flashcard
+var links = document.querySelectorAll('tr a,.flashcard_answer a,.front a'); //Select all links within the tables on a flashcard
 
 
 //// Used by the Generate button at the bottom to refresh the page 

@@ -23,10 +23,13 @@
 
                 <div class="flashcard" data-category= {{question.category}}>
                     <div class="front">
-                        <p>{{ question.question }}</p>
+                        <a href="https://www.google.com/search?q={{question.question}}"><img src="../static/icons/web_search.png" class="search_img"></i></a>
+                        <div class="flashcard_category">Category: {{ question.category }}</div>
+                        <div class="flashcard_question"><p>{{ question.question }}</p></div>
+                        
                     </div>
                     <div class="back">
-                    <p class="article-content">Answer: <a href="https://en.wikipedia.org/wiki/{{ question.answer|title() }}">{{ question.answer|title() }}</a></p>
+                    <p class="flashcard_answer">Answer: <a href="https://en.wikipedia.org/wiki/{{ question.answer|title() }}">{{ question.answer|title() }}</a></p>
                     </div>
                 </div>
 
