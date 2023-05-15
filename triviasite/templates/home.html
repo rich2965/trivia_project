@@ -29,7 +29,12 @@
                         
                     </div>
                     <div class="back">
+                    {%set text_split = question.answer.split(' ') %}
+                    {% if text_split|length > 4 %}
+                    <p class="flashcard_answer">Answer: {{ question.answer }}</p>
+                    {% else %}
                     <p class="flashcard_answer">Answer: <a href="https://en.wikipedia.org/wiki/{{ question.answer|title() }}">{{ question.answer|title() }}</a></p>
+                    {% endif %}
                     </div>
                 </div>
 
